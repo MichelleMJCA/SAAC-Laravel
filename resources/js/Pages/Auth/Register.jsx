@@ -1,13 +1,18 @@
+import { useState } from 'react'; // 1. Importamos useState para manejar los ojos
 import InputError from '@/Components/InputError';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-const field = 'block w-full rounded-lg border border-cream-400 bg-cream-50 px-3.5 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:border-guinda focus:outline-none focus:ring-2 focus:ring-guinda/20 transition-colors';
+const field = 'block w-full rounded-lg border border-cream-400 bg-cream-50 px-3.5 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:border-guinda focus:outline-none focus:ring-2 focus:ring-guinda/20 transition-colors pr-10'; // Nota: se agregó pr-10 para que el texto no tape el ojo
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '', email: '', password: '', password_confirmation: '',
     });
+
+    // 2. Definimos los estados para alternar ver/ocultar cada contraseña
+    const [mostrarPassword, setMostrarPassword] = useState(false);
+    const [mostrarConfirm, setMostrarConfirm] = useState(false);
 
     const submit = (e) => {
         e.preventDefault();
@@ -33,15 +38,55 @@ export default function Register() {
                     <InputError message={errors.email} className="mt-1.5" />
                 </div>
 
+                {/* 3. Bloque de Contraseña modificado */}
                 <div>
                     <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1.5">Contraseña</label>
-                    <input id="password" type="password" name="password" value={data.password} autoComplete="new-password" onChange={(e) => setData('password', e.target.value)} required className={field} placeholder="••••••••" />
+                    <div className="relative">
+                        <input 
+                            id="password" 
+                            type={mostrarPassword ? 'text' : 'password'} 
+                            name="password" 
+                            value={data.password} 
+                            autoComplete="new-password" 
+                            onChange={(e) => setData('password', e.target.value)} 
+                            required 
+                            className={field} 
+                            placeholder="••••••••" 
+                        />
+                        <button
+                            type="button"
+                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
+                            onClick={() => setMostrarPassword(!mostrarPassword)}
+                        >
+                            {mostrarPassword ? '🙈' : '👁️'}
+                        </button>
+                    </div>
                     <InputError message={errors.password} className="mt-1.5" />
                 </div>
 
+                {/* 4. Bloque de Confirmar Contraseña modificado */}
                 <div>
                     <label htmlFor="password_confirmation" className="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1.5">Confirmar contraseña</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" value={data.password_confirmation} autoComplete="new-password" onChange={(e) => setData('password_confirmation', e.target.value)} required className={field} placeholder="••••••••" />
+                    <div className="relative">
+                        <input 
+                            id="password_confirmation" 
+                            type={mostrarConfirm ? 'text' : 'password'} 
+                            name="password_confirmation" 
+                            value={data.password_confirmation} 
+                            autoComplete="new-password" 
+                            onChange={(e) => setData('password_confirmation', e.target.value)} 
+                            required 
+                            className={field} 
+                            placeholder="••••••••" 
+                        />
+                        <button
+                            type="button"
+                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
+                            onClick={() => setMostrarConfirm(!mostrarConfirm)}
+                        >
+                            {mostrarConfirm ? '🙈' : '👁️'}
+                        </button>
+                    </div>
                     <InputError message={errors.password_confirmation} className="mt-1.5" />
                 </div>
 
