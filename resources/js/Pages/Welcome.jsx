@@ -83,7 +83,7 @@ export default function Welcome({ auth }) {
                         {/* Badge */}
                         <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-white/70 backdrop-blur-sm">
                             <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-                            Ciclo Escolar 2024 – 2025 activo
+                            Ciclo Escolar 2026 – 2027 activo
                         </span>
 
                         <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
